@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap'
 import { CAMPSITES } from '../shared/campsites';
-import Directory from './DirectoryComponent'
+
 
 class CampsiteInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            campsite: CAMPSITES
+            selectedCampsite: CAMPSITES
         };
 
     }
@@ -30,10 +30,20 @@ class CampsiteInfo extends Component {
 
 
     }
-    /*renderComments(comments){
-        if ()
+    renderComments(comments){
+        if (comments){
+            return(
+                <div className="col-md-5 m-1">
+                    <h4>Comments</h4>
+                    {comments.map(comment => <div key={comments.id}>
+                        {comment.text}<br/>
+                        {comment.author} - {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                        </div>)}
+                </div>
+            )
+        }
+        return <div />;
     }
-*/
 
     render() {
 
@@ -42,7 +52,9 @@ class CampsiteInfo extends Component {
 
             return (
                 <div className="row">
-                    {this.renderCampsite(this.state.campsite)}
+                    
+                    {this.renderCampsite(this.props.campsite)}
+                    {this.renderComments(this.props.campsite.comments)}
                 </div>
             )
         }

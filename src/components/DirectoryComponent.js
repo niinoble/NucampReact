@@ -38,7 +38,7 @@ class Directory extends Component {
                     <div className = "row">
                         {directory}
                     </div>
-                    <CampsiteInfo />
+                    <CampsiteInfo campsite={this.state.selectedCampsite} />
                 </div>
 
        );
