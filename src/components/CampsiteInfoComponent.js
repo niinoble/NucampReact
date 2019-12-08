@@ -1,65 +1,64 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap'
+import { Link } from 'react-router-dom';
 
 
 
 
-   
 
-    function RenderCampsite({campsite}) {
-        
+function RenderCampsite({ campsite }) {
+
+    return (
+        <div className="col-md-5 m-1">
+
+            <Card>
+                <CardImg src={campsite.image} alt={campsite.name} />
+                <CardBody>
+                    <CardTitle>{campsite.name}</CardTitle>
+                    <CardText>{campsite.description}</CardText>
+                </CardBody>
+            </Card>
+        </div>
+    );
+
+
+}
+
+function RenderComments({ comments }) {
+    if (comments) {
         return (
             <div className="col-md-5 m-1">
-                
-                <Card>
-                    <CardImg src={campsite.image} alt={campsite.name} />
-                    <CardBody>
-                        <CardTitle>{campsite.name}</CardTitle>
-                        <CardText>{campsite.description}</CardText>
-                    </CardBody>
-                </Card>
+                <h4>Comments</h4>
+                {comments.map(comment => <div key={comments.id}>
+                    {comment.text}<br />
+                    {comment.author} - {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
+                </div>)}
             </div>
-        );
-
-
+        )
     }
+    return <div />;
+}
 
-    function RenderComments({comments}){
-        if (comments){
-            return(
-                <div className="col-md-5 m-1">
-                    <h4>Comments</h4>
-                    {comments.map(comment => <div key={comments.id}>
-                        {comment.text}<br/>
-                        {comment.author} - {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
-                        </div>)}
-                </div>
-            )
-        }
-        return <div />;
-    }
-
-    function CampsiteInfo(props) {
+function CampsiteInfo(props) {
 
 
-        if (props.campsite) {
+    if (props.campsite) {
 
-            return (
-                <div className="container">
-                    <div className="row">
-                    
+        return (
+            <div className="container">
+                <div className="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments campsite={props.campsite.comments} />
-                    
+                    <RenderComments comments={props.comments} />
+
                 </div>
-                </div>
-            )
-        }
-        return <div></div>
-
-
-
+            </div>
+        )
     }
+    return <div />
+
+
+
+}
 
 
 
