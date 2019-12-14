@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label, Row, Col
+    Input, Label, Row, Col
 } from 'reactstrap'
 
 import { Link } from 'react-router-dom';
@@ -9,7 +9,9 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
 
 
 
-
+const required = val => val && val.length;
+const maxLength = len => val => !val || (val.length <= len);
+const minLength = len => val => val && (val.length >= len);
 
 class CommentForm extends React.Component {
     constructor(props) {
@@ -32,7 +34,12 @@ class CommentForm extends React.Component {
         });
     }
 
+    handleSubmit(values) {
+        console.log('Current state is: ' + JSON.stringify(values));
+        alert('Current state is: ' + JSON.stringify(values));
 
+
+    }
     render() {
         return (
             <div>
@@ -43,12 +50,13 @@ class CommentForm extends React.Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
-                        <LocalForm>
-                           <div className ="group">
-                           <Row className="form-group">
+
+                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
+
+                            <Row className="group">
                                 <Label htmlFor="rating" md={12}>rating</Label>
                                 <Col md={12}>
-                                    <Control.select model="rating" id="rating">
+                                    <Control.select model=".rating" id="rating">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -57,18 +65,34 @@ class CommentForm extends React.Component {
                                     </Control.select>
                                 </Col>
                             </Row>
-                            <Row className="form-group">
+                            <Row className="group">
                                 <Label htmlFor="yourName" md={12}>Your Name</Label>
                                 <Col md={12}>
                                     <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
+                                        validators={{
+                                            required,
+                                            minLength: minLength(2),
+                                            maxLength: maxLength(15)
+                                        }}
 
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".author"
+                                        show="touched"
+                                        component="div"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be at least 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
                                     />
                                 </Col>
                             </Row>
 
-                            <Row className="form-group">
+                            <Row className="group">
                                 <Label htmlFor="text" md={12}>Comment</Label>
                                 <Col md={12}>
                                     <Control.textarea model=".text" id="text" name="text"
@@ -77,15 +101,15 @@ class CommentForm extends React.Component {
                                     />
                                 </Col>
                             </Row>
-                            <Row className="form-group">
-                                <Col md={{ size: 10 }}>
+                            <Row className="group">
+                                <Col md={{ size: 6 }}>
                                     <Button type="submit" color="primary">
-                                        Submit 
+                                        Submit
                                     </Button>
                                 </Col>
                             </Row>
 
-                           </div>
+
                         </LocalForm>
 
                     </ModalBody>
