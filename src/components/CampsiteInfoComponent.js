@@ -54,9 +54,9 @@ class CommentForm extends React.Component {
                         <LocalForm onSubmit={values => this.handleSubmit(values)}>
 
                             <Row className="group">
-                                <Label htmlFor="rating" md={12}>rating</Label>
+                                <Label htmlFor="rating" md={12}>Rating</Label>
                                 <Col md={12}>
-                                    <Control.select model=".rating" id="rating">
+                                    <Control.select className="col-md-12" model=".rating" id="rating">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -101,8 +101,11 @@ class CommentForm extends React.Component {
                                     />
                                 </Col>
                             </Row>
+                            
                             <Row className="group">
+                           
                                 <Col md={{ size: 6 }}>
+                                <br/>
                                     <Button type="submit" color="primary">
                                         Submit
                                     </Button>
