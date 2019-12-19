@@ -9,12 +9,9 @@ import Home from './HomeComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect} from 'react-redux';
 import Contact from './ContactComponent';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchCampsites } from '../redux/ActionCreators';
 
 
-const mapDispatchToProps = {
-    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
-};
 
 const mapStateToProps = state => {
     return {
@@ -24,6 +21,11 @@ const mapStateToProps = state => {
         promotions: state.promotions
     };
 };
+
+const mapDispatchToProps = {
+    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+};
+
 
 
 class Main extends Component {
