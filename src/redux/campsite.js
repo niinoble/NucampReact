@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import {CAMPSITES} from '../shared/campsites';
-
-export const campsites = (state = CAMPSITES, action) => {
-    switch (action.type){
-        default: 
-        return state;
-=======
 import * as ActionTypes from './ActionTypes';
 
 export const Campsites = (state = {
@@ -22,6 +14,6 @@ export const Campsites = (state = {
             return {...state, isLoading: false, errMess: action.payload};
         default:
             return state;
->>>>>>> 1a2607b0efd994c4deb268676124fd3a168d6717
+
     }
 };

@@ -1,20 +1,29 @@
 import * as ActionTypes from './ActionTypes';
-import {CAMPSITE} from '../shared/campsites';
+import {CAMPSITES} from '../shared/campsites';
+
 
 
 export const fetchCampsites = () => dispatch => {
-    dispatch (campsitesLoading());
-    siteTimeout(() => {
-        dispatch(addCampsites(CAMPSITE));
+
+    dispatch(campsitesLoading());
+
+    setTimeout(() => {
+        dispatch(addCampsites(CAMPSITES));
     }, 2000);
 };
 
-export const campsiteLoading = () => ({
-    type: ActionTypes.CAMPSITE_LOADING
+export const campsitesLoading = () => ({
+    type: ActionTypes.CAMPSITES_LOADING
 });
 
-export const campsiteFailed = () => ({
-    type: ActionTypes.CAMPSITE_FAILED
+export const campsitesFailed = errMess => ({
+    type: ActionTypes.CAMPSITES_FAILED,
+    payload: errMess
+});
+
+export const addCampsites = campsites => ({
+    type: ActionTypes.ADD_CAMPSITES,
+    payload: campsites
 });
 
 export const addComment = (campsiteId, rating, author, text) => ({
